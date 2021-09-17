@@ -36,7 +36,7 @@ func (c *ConfigHandleMock) InitConfig() (err error) {
 	return nil
 }
 
-func (c *ConfigHandleMock) WriteLocalConfigFile(key string, value string) {
+func (c *ConfigHandleMock) WriteLocalConfig(key string, value string) {
 }
 
 func (c *ConfigHandleMock) GetString(key string) string {

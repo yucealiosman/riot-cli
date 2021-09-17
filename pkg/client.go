@@ -65,11 +65,11 @@ func addQueryParameters(baseURL string, queryParams map[string]string) string {
 }
 
 func buildUrl(baseUrl string, urlPath string, queryParams map[string]string) string {
-
 	parsedUrl, err := urlpkg.Parse(baseUrl)
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	path, err := urlpkg.Parse(urlPath)
 	if err != nil {
 		log.Fatal(err)

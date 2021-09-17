@@ -3,6 +3,7 @@ package util
 import (
 	"os"
 	"path/filepath"
+	"runtime"
 
 	"github.com/spf13/viper"
 )
@@ -15,20 +16,26 @@ const (
 
 type ConfigHandler interface {
 	InitConfig() (err error)
-	WriteLocalConfigFile(string, string)
+	WriteLocalConfig(string, string)
 	GetString(string) string
 }
 
 type ConfigHandle struct {
 }
 
+func getCurrentDir() string {
+	_, fileName, _, _ := runtime.Caller(0)
+	dir := filepath.Dir(fileName)
+
+	return dir
+}
+
 // LoadConfig reads configuration from file or environment variables.
 func (c *ConfigHandle) InitConfig() (err error) {
 	var v = viper.New()
-	wd, _ := os.Getwd()
-
-	viper.AddConfigPath(wd)
-	viper.SetConfigName(localCfgFileName)
+	dir := getCurrentDir()
+	viper.AddConfigPath(dir)
+	viper.SetConfigName(defaultCfgFileName)
 	viper.SetConfigType(cfgType)
 
 	err = viper.ReadInConfig()
@@ -36,8 +43,10 @@ func (c *ConfigHandle) InitConfig() (err error) {
 		return
 	}
 
-	viper.SetConfigName(defaultCfgFileName)
+	viper.SetConfigName(localCfgFileName)
 	viper.SetConfigType(cfgType)
+	wd, _ := os.Getwd()
+	viper.AddConfigPath(wd)
 
 	err = createLocalConfigFile(filepath.Join(wd, localCfgFileName+"."+cfgType))
 	if err != nil {
@@ -62,15 +71,9 @@ func createLocalConfigFile(path string) error {
 	return nil
 }
 
-func (c *ConfigHandle) WriteLocalConfigFile(key string, value string) {
-	wd, _ := os.Getwd()
-
-	viper.AddConfigPath(wd)
-	viper.SetConfigName(localCfgFileName)
-	viper.SetConfigType(cfgType)
-
+func (c *ConfigHandle) WriteLocalConfig(key string, value string) {
 	viper.Set(key, value)
-	viper.WriteConfigAs(localCfgFileName + "." + cfgType)
+	viper.WriteConfig()
 }
 
 func (c *ConfigHandle) GetString(key string) (value string) {

@@ -14,7 +14,7 @@ var setTokenCmd = &cobra.Command{
 	Short: "Set your riot api token",
 
 	Run: func(cmd *cobra.Command, args []string) {
-		setTokenInConfig(token)
+		setTokenConfig(token)
 
 	},
 }

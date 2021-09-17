@@ -19,22 +19,22 @@ func newPromtForToken() promptui.Prompt {
 	}
 }
 func setRiotToken(prompt promptui.Prompt) string {
-	token, err := prompt.Run()
+	tokenInput, err := prompt.Run()
 
 	if err != nil {
 		showErrorAndExit(err)
 
 	}
 
-	fmt.Printf("You entered %q\n", token)
-	setTokenInConfig(token)
+	fmt.Printf("You entered %q\n", tokenInput)
+	setTokenConfig(tokenInput)
 
-	return token
+	return tokenInput
 
 }
 
-func setTokenInConfig(token string) {
-	configHandler.WriteLocalConfigFile("riotToken", token)
+func setTokenConfig(token string) {
+	configHandler.WriteLocalConfig("riotToken", token)
 }
 
 func newPromtForRegion() PromtSelect {
@@ -68,15 +68,16 @@ func newPromtForRegion() PromtSelect {
 }
 
 func setRegion(prompt PromtSelect) string {
-	_, region, err := prompt.Run()
+	_, regionInput, err := prompt.Run()
 
 	if err != nil {
 		showErrorAndExit(err)
 	}
 
-	configHandler.WriteLocalConfigFile("region", region)
-	fmt.Printf("You choose %q\n", region)
-	return region
+	fmt.Printf("You choose %q\n", regionInput)
+
+	configHandler.WriteLocalConfig("region", regionInput)
+	return regionInput
 }
 
 func showErrorAndExit(err error) {
