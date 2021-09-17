@@ -6,7 +6,7 @@ import (
 
 // chooseRegionCmd represents the chooseRegion command
 var chooseRegionCmd = &cobra.Command{
-	Use:   "choose-region",
+	Use:   "region-set",
 	Short: "Choose your region",
 
 	Run: func(cmd *cobra.Command, args []string) {

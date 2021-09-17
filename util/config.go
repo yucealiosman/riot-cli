@@ -45,10 +45,10 @@ func (c *ConfigHandle) InitConfig() (err error) {
 
 	viper.SetConfigName(localCfgFileName)
 	viper.SetConfigType(cfgType)
-	wd, _ := os.Getwd()
-	viper.AddConfigPath(wd)
+	tempDir := os.TempDir()
+	viper.AddConfigPath(tempDir)
 
-	err = createLocalConfigFile(filepath.Join(wd, localCfgFileName+"."+cfgType))
+	err = createLocalConfigFile(filepath.Join(tempDir, localCfgFileName+"."+cfgType))
 	if err != nil {
 		return
 	}
