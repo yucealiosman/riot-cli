@@ -13,14 +13,9 @@ const (
 	cfgType            = "json"
 )
 
-type Config struct {
-	RiotUrl   string `mapstructure:"riotUrl"`
-	RiotToken string `mapstructure:"riotToken"`
-	Region    string `mapstructure:"region"`
-}
-
 // LoadConfig reads configuration from file or environment variables.
-func InitConfig() (config Config, err error) {
+func InitConfig() (err error) {
+	var v = viper.New()
 	wd, _ := os.Getwd()
 
 	viper.AddConfigPath(wd)
@@ -42,7 +37,7 @@ func InitConfig() (config Config, err error) {
 
 	viper.MergeInConfig()
 
-	err = viper.Unmarshal(&config)
+	err = viper.Unmarshal(&v)
 	return
 }
 

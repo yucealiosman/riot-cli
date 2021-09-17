@@ -9,9 +9,8 @@ Simple command line client for Riot Games service written in Go.
 
 ### Build
 
-You can build and install the official repository with [Go](https://golang.org/dl/) (before running the below command, ensure you have `GO111MODULE=on` set in your environment):
 
-	go get github.com/yucealiosman/riot-cli/riotcli
+go get github.com/yucealiosman/riot-cli/riotcli
 
 This will checkout this repository into `$GOPATH/src/yucealiosman/riot-cli/riotcli`, build, and install it.
 

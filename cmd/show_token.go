@@ -8,7 +8,7 @@ import (
 // showTokenCmd represents the showToken command
 var showTokenCmd = &cobra.Command{
 	Use:   "show-token",
-	Short: "Shows Riot Api Token",
+	Short: "Show Riot API token",
 
 	Run: func(cmd *cobra.Command, args []string) {
 		showResult(viper.GetString("riottoken"))

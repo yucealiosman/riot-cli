@@ -8,7 +8,6 @@ import (
 	"github.com/yucealiosman/riot-cli/pkg"
 	"github.com/yucealiosman/riot-cli/util"
 
-	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -38,12 +37,12 @@ func init() {
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
 	util.InitConfig()
-	region := viper.GetString("Region")
+	region := viper.GetString("region")
 	if region == "" {
 		region = setRegion()
 
 	}
-	token := viper.GetString("riottoken")
+	token := viper.GetString("riotToken")
 	if token == "" {
 		setRiotToken()
 
@@ -61,34 +60,9 @@ func setClient(region string) error {
 		Timeout: 30 * time.Second,
 	}
 	riotUrl := viper.GetString("riotUrl")
+	riotUrl = fmt.Sprintf(riotUrl, region)
+
 	var err error
 	client, err = pkg.NewClient(riotUrl, httpClient)
 	return err
-}
-
-func setRegion() string {
-	templates := &promptui.SelectTemplates{
-		Label:    "{{ . | cyan }} ",
-		Active:   "{{ . | green }} ",
-		Inactive: "{{ . | red }} ",
-		Selected: "{{ . | bold }} ",
-		Help:     "{{ . | blue }} ",
-		Details:  "{{ . | yellow }} ",
-	}
-	prompt := promptui.Select{
-		Label:     "Select a Region Please",
-		Items:     []string{"americas", "asia", "europe"},
-		Templates: templates,
-	}
-
-	_, region, err := prompt.Run()
-
-	if err != nil {
-		showErrorAndExit(err)
-
-	}
-
-	util.WriteLocalConfigFile("region", region)
-	fmt.Printf("You choose %q\n", region)
-	return region
 }

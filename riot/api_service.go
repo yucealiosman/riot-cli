@@ -78,3 +78,24 @@ func GetCurrentGameBySummonerId(client *pkg.Client, sumId string) (*Game, error)
 	error := GetService(client, params, path, &game)
 	return &game, error
 }
+
+type StatusDto struct {
+	MaintenanceStatus string `json:"maintenance_status"`
+	IncidentSeverity  string `json:"maintincident_severity"`
+	Platforms         string `json:"platforms"`
+}
+
+type ServerStatus struct {
+	ID           string      `json:"id"`
+	Name         string      `json:"name"`
+	Locales      []string    `json:"locales"`
+	Maintenances []StatusDto `json:"maintenances"`
+	Incidents    []StatusDto `json:"incidents"`
+}
+
+func GetServerStatus(client *pkg.Client) (*ServerStatus, error) {
+	path := "status/v4/platform-data"
+	var status ServerStatus
+	error := GetService(client, nil, path, &status)
+	return &status, error
+}

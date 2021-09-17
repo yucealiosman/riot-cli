@@ -26,7 +26,7 @@ func init() {
 // getSummonersByNamesCmd represents the getSummonerByName command
 var getSummonersByNamesCmd = &cobra.Command{
 	Use:   "get-summoners-by-names",
-	Short: "Shows summoner details with given name",
+	Short: "Show summoner details with given name",
 	Run:   getSummonerData,
 }
 

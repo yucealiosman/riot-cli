@@ -227,7 +227,7 @@ func GetMatch(client *pkg.Client, matchId string) (*MatchDetail, error) {
 }
 
 type Match struct {
-	GameId     int32  `json:"gameId"`
+	GameId     int    `json:"gameId"`
 	Role       string `json:"role"`
 	Season     int    `json:"season"`
 	PlatformId string `json:"platformId"`

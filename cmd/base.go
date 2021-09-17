@@ -27,10 +27,54 @@ func setRiotToken() string {
 	}
 
 	fmt.Printf("You entered %q\n", token)
-	util.WriteLocalConfigFile("riottoken", token)
+	setTokenInConfig(token)
 
 	return token
 
+}
+
+func setTokenInConfig(token string) {
+	util.WriteLocalConfigFile("riotToken", token)
+}
+
+func setRegion() string {
+	var regionList = []string{
+		"BR1",
+		"EUN1",
+		"EUW1",
+		"JP1",
+		"KR",
+		"LA1",
+		"LA2",
+		"NA1",
+		"OC1",
+		"TR1",
+	}
+
+	templates := &promptui.SelectTemplates{
+		Label:    "{{ . | cyan }} ",
+		Active:   "{{ . | green }} ",
+		Inactive: "{{ . | red }} ",
+		Selected: "{{ . | bold }} ",
+		Help:     "{{ . | blue }} ",
+		Details:  "{{ . | yellow }} ",
+	}
+	prompt := promptui.Select{
+		Label:     "Select a Region Please",
+		Items:     regionList,
+		Templates: templates,
+	}
+
+	_, region, err := prompt.Run()
+
+	if err != nil {
+		showErrorAndExit(err)
+
+	}
+
+	util.WriteLocalConfigFile("region", region)
+	fmt.Printf("You choose %q\n", region)
+	return region
 }
 
 func showErrorAndExit(err error) {
