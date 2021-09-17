@@ -53,5 +53,5 @@ func matchList(cmd *cobra.Command, args []string) {
 		showErrorAndExit(err)
 
 	}
-	showResult(string(b))
+	showResult(cmd, string(b))
 }

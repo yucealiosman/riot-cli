@@ -25,7 +25,7 @@ var serverStatusCmd = &cobra.Command{
 			showErrorAndExit(err)
 
 		}
-		showResult(string(b))
+		showResult(cmd, string(b))
 
 	},
 }

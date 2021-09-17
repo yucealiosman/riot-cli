@@ -31,17 +31,17 @@ var matchCmd = &cobra.Command{
 
 func match(cmd *cobra.Command, args []string) {
 
-	championMasteryList, err := riot.GetMatch(client, matchId)
+	matchDetail, err := riot.GetMatch(client, matchId)
 
 	if err != nil {
 		showErrorAndExit(err)
 
 	}
 
-	b, err := json.MarshalIndent(*championMasteryList, "", "  ")
+	b, err := json.MarshalIndent(*matchDetail, "", "  ")
 	if err != nil {
 		showErrorAndExit(err)
 
 	}
-	showResult(string(b))
+	showResult(cmd, string(b))
 }

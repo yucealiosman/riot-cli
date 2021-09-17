@@ -14,12 +14,12 @@ go get github.com/yucealiosman/riot-cli/riotcli
 
 This will checkout this repository into `$GOPATH/src/yucealiosman/riot-cli/riotcli`, build, and install it.
 
-It should then be available in $GOPATH/bin/riotcli.
+It should be available in $GOPATH/bin/riotcli.
 
 
 ### Example Usage
 
-jiracli {command}
+riotcli {command}
 
 
 ##### Commands

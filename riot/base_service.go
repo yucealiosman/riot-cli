@@ -8,7 +8,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func GetService(client *pkg.Client, queryParams map[string]string, urlPath string, object interface{}) error {
+func GetService(client pkg.Client, queryParams map[string]string, urlPath string, object interface{}) error {
 	headers := map[string]string{"X-Riot-Token": viper.GetString("riotToken"), "Content-Type": "application/json"}
 	request, err := pkg.NewGetRequest(headers, queryParams, urlPath)
 	if err != nil {

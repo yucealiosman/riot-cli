@@ -13,8 +13,17 @@ const (
 	cfgType            = "json"
 )
 
+type ConfigHandler interface {
+	InitConfig() (err error)
+	WriteLocalConfigFile(string, string)
+	GetString(string) string
+}
+
+type ConfigHandle struct {
+}
+
 // LoadConfig reads configuration from file or environment variables.
-func InitConfig() (err error) {
+func (c *ConfigHandle) InitConfig() (err error) {
 	var v = viper.New()
 	wd, _ := os.Getwd()
 
@@ -53,7 +62,7 @@ func createLocalConfigFile(path string) error {
 	return nil
 }
 
-func WriteLocalConfigFile(key string, value string) {
+func (c *ConfigHandle) WriteLocalConfigFile(key string, value string) {
 	wd, _ := os.Getwd()
 
 	viper.AddConfigPath(wd)
@@ -62,4 +71,8 @@ func WriteLocalConfigFile(key string, value string) {
 
 	viper.Set(key, value)
 	viper.WriteConfigAs(localCfgFileName + "." + cfgType)
+}
+
+func (c *ConfigHandle) GetString(key string) (value string) {
+	return viper.GetString(key)
 }

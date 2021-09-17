@@ -29,9 +29,13 @@ type Request struct {
 	Path        string
 }
 
+type HTTPClient interface {
+	Do(*http.Request) (*http.Response, error)
+}
+
 type Client struct {
 	BaseURL    string
-	HttpClient *http.Client
+	HttpClient HTTPClient
 }
 
 type Response struct {
@@ -159,8 +163,8 @@ func NewRequest(method HttpMethod, headers map[string]string, queryParams map[st
 	}, err
 }
 
-func NewClient(baseUrl string, httpClient *http.Client) (*Client, error) {
-	return &Client{
+func NewClient(baseUrl string, httpClient HTTPClient) (Client, error) {
+	return Client{
 		BaseURL:    baseUrl,
 		HttpClient: httpClient,
 	}, nil

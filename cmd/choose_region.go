@@ -10,7 +10,7 @@ var chooseRegionCmd = &cobra.Command{
 	Short: "Choose your region",
 
 	Run: func(cmd *cobra.Command, args []string) {
-		setRegion()
+		setRegion(regionPrompt)
 
 	},
 }

@@ -14,7 +14,7 @@ type Summoner struct {
 	RevisionDate  int    `json:"revisionDate"`
 }
 
-func GetSummonerByName(client *pkg.Client, sum_name string) (*Summoner, error) {
+func GetSummonerByName(client pkg.Client, sum_name string) (*Summoner, error) {
 	path := "summoner/v4/summoners/by-name/" + sum_name
 	var sum Summoner
 	error := GetService(client, nil, path, &sum)
@@ -33,7 +33,7 @@ type ChampionMastery struct {
 	SummonerID                   string `json:"summonerId"`
 }
 
-func GetChampionMasteriesBySummonerId(client *pkg.Client, sumId string) (*[]ChampionMastery, error) {
+func GetChampionMasteriesBySummonerId(client pkg.Client, sumId string) (*[]ChampionMastery, error) {
 	path := "champion-mastery/v4/champion-masteries/by-summoner/" + sumId
 
 	var championMasteryList []ChampionMastery
@@ -71,7 +71,7 @@ type Perks struct {
 	PerkSubStyle int64   `json:"perkSubStyle"`
 }
 
-func GetCurrentGameBySummonerId(client *pkg.Client, sumId string) (*Game, error) {
+func GetCurrentGameBySummonerId(client pkg.Client, sumId string) (*Game, error) {
 	params := map[string]string{"endIndex": "10"}
 	path := "spectator/v4/active-games/by-summoner/" + sumId
 	var game Game
@@ -93,7 +93,7 @@ type ServerStatus struct {
 	Incidents    []StatusDto `json:"incidents"`
 }
 
-func GetServerStatus(client *pkg.Client) (*ServerStatus, error) {
+func GetServerStatus(client pkg.Client) (*ServerStatus, error) {
 	path := "status/v4/platform-data"
 	var status ServerStatus
 	error := GetService(client, nil, path, &status)

@@ -11,7 +11,7 @@ var TokenCmd = &cobra.Command{
 	Short: "Riot api token",
 
 	Run: func(cmd *cobra.Command, args []string) {
-		showResult(viper.GetString("riottoken"))
+		showResult(cmd, viper.GetString("riottoken"))
 	},
 }
 

@@ -218,7 +218,7 @@ const (
 	DuoSupport Role = "DUO_SUPPORT"
 )
 
-func GetMatch(client *pkg.Client, matchId string) (*MatchDetail, error) {
+func GetMatch(client pkg.Client, matchId string) (*MatchDetail, error) {
 	path := "match/v4/matches/" + matchId
 
 	var matchDetail MatchDetail
@@ -241,7 +241,7 @@ type MatchList struct {
 	MatchList []Match `json:"matches"`
 }
 
-func GetMatchList(client *pkg.Client, accountId string) (*MatchList, error) {
+func GetMatchList(client pkg.Client, accountId string) (*MatchList, error) {
 	params := map[string]string{"endIndex": "10"}
 	path := "match/v4/matchlists/by-account/" + accountId
 	var matchListResponse MatchList

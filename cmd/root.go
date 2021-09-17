@@ -5,27 +5,34 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/manifoldco/promptui"
 	"github.com/yucealiosman/riot-cli/pkg"
 	"github.com/yucealiosman/riot-cli/util"
 
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
+)
+
+var (
+	client        pkg.Client
+	regionPrompt  PromtSelect        = newPromtForRegion()
+	tokenPromt    promptui.Prompt    = newPromtForToken()
+	configHandler util.ConfigHandler = &util.ConfigHandle{}
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "root-cli",
+	Use:   "riotcli",
 	Short: "riot is a CLI tool for Riot League of Legends",
 }
 
-var client *pkg.Client
+type PromtSelect interface {
+	Run() (int, string, error)
+}
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
-
 	cobra.CheckErr(rootCmd.Execute())
-
 }
 
 func init() {
@@ -36,21 +43,23 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
-	util.InitConfig()
-	region := viper.GetString("region")
+	configHandler.InitConfig()
+	region := configHandler.GetString("region")
 	if region == "" {
-		region = setRegion()
+		region = setRegion(regionPrompt)
 
 	}
-	token := viper.GetString("riotToken")
+	token := configHandler.GetString("riotToken")
 	if token == "" {
-		setRiotToken()
+		setRiotToken(tokenPromt)
 
 	}
-	err := setClient(region)
-	if err != nil {
-		showErrorAndExit(err)
+	if (pkg.Client{}) == client {
+		err := setClient(region)
+		if err != nil {
+			showErrorAndExit(err)
 
+		}
 	}
 
 }
@@ -59,7 +68,7 @@ func setClient(region string) error {
 	httpClient := &http.Client{
 		Timeout: 30 * time.Second,
 	}
-	riotUrl := viper.GetString("riotUrl")
+	riotUrl := configHandler.GetString("riotUrl")
 	riotUrl = fmt.Sprintf(riotUrl, region)
 
 	var err error

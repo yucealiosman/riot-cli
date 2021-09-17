@@ -4,21 +4,21 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/yucealiosman/riot-cli/util"
-
 	"github.com/fatih/color"
 	"github.com/manifoldco/promptui"
+	"github.com/spf13/cobra"
 )
 
-func setRiotToken() string {
-	prompt := promptui.Prompt{
+func newPromtForToken() promptui.Prompt {
+	return promptui.Prompt{
 		Label: "Enter Riot API Token Please. You can view more details at https://developer.riotgames.com/docs/portal#_getting-started",
 		Templates: &promptui.PromptTemplates{
 			Valid:   "{{ . | cyan }} ",
 			Success: "{{ . | blue }} ",
 		},
 	}
-
+}
+func setRiotToken(prompt promptui.Prompt) string {
 	token, err := prompt.Run()
 
 	if err != nil {
@@ -34,10 +34,10 @@ func setRiotToken() string {
 }
 
 func setTokenInConfig(token string) {
-	util.WriteLocalConfigFile("riotToken", token)
+	configHandler.WriteLocalConfigFile("riotToken", token)
 }
 
-func setRegion() string {
+func newPromtForRegion() PromtSelect {
 	var regionList = []string{
 		"BR1",
 		"EUN1",
@@ -64,15 +64,17 @@ func setRegion() string {
 		Items:     regionList,
 		Templates: templates,
 	}
+	return &prompt
+}
 
+func setRegion(prompt PromtSelect) string {
 	_, region, err := prompt.Run()
 
 	if err != nil {
 		showErrorAndExit(err)
-
 	}
 
-	util.WriteLocalConfigFile("region", region)
+	configHandler.WriteLocalConfigFile("region", region)
 	fmt.Printf("You choose %q\n", region)
 	return region
 }
@@ -82,6 +84,6 @@ func showErrorAndExit(err error) {
 	os.Exit(1)
 }
 
-func showResult(result string) {
-	color.Cyan("%v\n", result)
+func showResult(cmd *cobra.Command, result string) {
+	cmd.Print(result)
 }

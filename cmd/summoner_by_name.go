@@ -56,18 +56,18 @@ func summonerData(cmd *cobra.Command, args []string) {
 	close(errors)
 
 	showErrorList(errors)
-	showResultList(results)
+	showResultList(cmd, results)
 
 }
 
-func showResultList(results chan *riot.Summoner) {
+func showResultList(cmd *cobra.Command, results chan *riot.Summoner) {
 	for res := range results {
 		b, err := json.MarshalIndent(*res, "", "  ")
 		if err != nil {
 			showErrorAndExit(err)
 
 		}
-		showResult(string(b))
+		showResult(cmd, string(b))
 	}
 }
 
