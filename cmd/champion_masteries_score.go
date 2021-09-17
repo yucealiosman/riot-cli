@@ -12,24 +12,24 @@ var (
 	name string
 )
 
-// getChampionMasteriesScoreCmd represents the getChampionMasteriesScore command
-var getChampionMasteriesScoreCmd = &cobra.Command{
-	Use:   "get-champion-masteries-score",
+// championMasteriesScoreCmd represents the champion-masteries-score command
+var championMasteriesScoreCmd = &cobra.Command{
+	Use:   "champion-masteries-score",
 	Short: "Champion masteries score by summoner name",
-	Run:   getChampionMasteriesScore,
+	Run:   championMasteriesScore,
 }
 
 func init() {
-	rootCmd.AddCommand(getChampionMasteriesScoreCmd)
+	rootCmd.AddCommand(championMasteriesScoreCmd)
 
-	getChampionMasteriesScoreCmd.Flags().StringVarP(
+	championMasteriesScoreCmd.Flags().StringVarP(
 		&name, "name", "n", "", "summoner name",
 	)
-	getChampionMasteriesScoreCmd.MarkFlagRequired("name")
+	championMasteriesScoreCmd.MarkFlagRequired("name")
 
 }
 
-func getChampionMasteriesScore(cmd *cobra.Command, args []string) {
+func championMasteriesScore(cmd *cobra.Command, args []string) {
 	summoner, err := riot.GetSummonerByName(client, name)
 
 	if err != nil {

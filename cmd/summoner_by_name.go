@@ -14,23 +14,23 @@ var (
 )
 
 func init() {
-	rootCmd.AddCommand(getSummonersByNamesCmd)
+	rootCmd.AddCommand(SummonersCmd)
 
-	getSummonersByNamesCmd.Flags().StringSliceVarP(
+	SummonersCmd.Flags().StringSliceVarP(
 		&nameList, "names", "n", nil, "list of summoner names",
 	)
-	getSummonersByNamesCmd.MarkFlagRequired("names")
+	SummonersCmd.MarkFlagRequired("names")
 
 }
 
-// getSummonersByNamesCmd represents the getSummonerByName command
-var getSummonersByNamesCmd = &cobra.Command{
-	Use:   "get-summoners-by-names",
-	Short: "Show summoner details with given name",
-	Run:   getSummonerData,
+// SummonersCmd represents the summoners command
+var SummonersCmd = &cobra.Command{
+	Use:   "summoners",
+	Short: "Detail of summoners with given name list",
+	Run:   summonerData,
 }
 
-func getSummonerData(cmd *cobra.Command, args []string) {
+func summonerData(cmd *cobra.Command, args []string) {
 
 	results := make(chan *riot.Summoner, 2)
 	errors := make(chan error, 2)

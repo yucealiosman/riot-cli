@@ -5,10 +5,10 @@ import (
 	"github.com/spf13/viper"
 )
 
-// showTokenCmd represents the showToken command
-var showTokenCmd = &cobra.Command{
-	Use:   "show-token",
-	Short: "Show Riot API token",
+// TokenCmd represents the token command
+var TokenCmd = &cobra.Command{
+	Use:   "token",
+	Short: "Riot api token",
 
 	Run: func(cmd *cobra.Command, args []string) {
 		showResult(viper.GetString("riottoken"))
@@ -16,6 +16,6 @@ var showTokenCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(showTokenCmd)
+	rootCmd.AddCommand(TokenCmd)
 
 }

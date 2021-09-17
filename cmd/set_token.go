@@ -8,10 +8,10 @@ var (
 	token string
 )
 
-// setTokenCmdCmd represents the setToken command
+// setTokenCmd represents the token-set command
 var setTokenCmd = &cobra.Command{
-	Use:   "set-token",
-	Short: "Set your Riot Api Token",
+	Use:   "token-set",
+	Short: "Set your riot api token",
 
 	Run: func(cmd *cobra.Command, args []string) {
 		setTokenInConfig(token)

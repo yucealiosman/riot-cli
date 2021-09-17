@@ -23,5 +23,14 @@ jiracli {command}
 
 
 ##### Commands
-Where the individual commands are maps with these keys:
-* `help: string` This is help message displayed in the usage for the command
+* `help`                    Help about any command
+* `champion-masteries-score` Champion masteries score by summoner name
+* `choose-region`            Choose your region
+* `current-game `            Current game by summoner name
+* `help`                    Help about any command
+* `match`                    Match detail by match id
+* `match-list`               Match list by summoner name
+* `server-status`            Status of selected server
+* `summoners`                Detail of summoners with given name list
+* `token`                    Riot api token
+* `token-set`                Set your riot api token

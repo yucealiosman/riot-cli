@@ -13,24 +13,24 @@ var (
 )
 
 func init() {
-	rootCmd.AddCommand(getmatchListCmd)
+	rootCmd.AddCommand(matchListCmd)
 
-	getmatchListCmd.Flags().StringVarP(
+	matchListCmd.Flags().StringVarP(
 		&matchSumName, "name", "n", "", "summoner name",
 	)
-	getmatchListCmd.MarkFlagRequired("name")
+	matchListCmd.MarkFlagRequired("name")
 
 }
 
-// getmatchListCmd represents the getmatchList command
-var getmatchListCmd = &cobra.Command{
-	Use:   "get-match-list",
-	Short: "Get match list by summoner name ",
+// matchListCmd represents the match-list command
+var matchListCmd = &cobra.Command{
+	Use:   "match-list",
+	Short: "Match list by summoner name",
 
-	Run: getMatchList,
+	Run: matchList,
 }
 
-func getMatchList(cmd *cobra.Command, args []string) {
+func matchList(cmd *cobra.Command, args []string) {
 
 	summoner, err := riot.GetSummonerByName(client, matchSumName)
 

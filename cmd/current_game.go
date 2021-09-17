@@ -12,24 +12,24 @@ var (
 	gameSumName string
 )
 
-// getCurrentGameCmd represents the getCurrentGame command
-var getCurrentGameCmd = &cobra.Command{
-	Use:   "get-current-game",
-	Short: "Get current game by summoner name",
+// currentGameCmd represents the current-game command
+var currentGameCmd = &cobra.Command{
+	Use:   "current-game",
+	Short: "Current game by summoner name",
 
-	Run: getCurrentGame,
+	Run: currentGame,
 }
 
 func init() {
-	rootCmd.AddCommand(getCurrentGameCmd)
-	getCurrentGameCmd.Flags().StringVarP(
+	rootCmd.AddCommand(currentGameCmd)
+	currentGameCmd.Flags().StringVarP(
 		&gameSumName, "name", "n", "", "summoner name",
 	)
-	getCurrentGameCmd.MarkFlagRequired("name")
+	currentGameCmd.MarkFlagRequired("name")
 
 }
 
-func getCurrentGame(cmd *cobra.Command, args []string) {
+func currentGame(cmd *cobra.Command, args []string) {
 	summoner, err := riot.GetSummonerByName(client, gameSumName)
 
 	if err != nil {

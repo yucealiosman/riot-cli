@@ -10,7 +10,7 @@ import (
 // serverStatusCmd represents the serverStatus command
 var serverStatusCmd = &cobra.Command{
 	Use:   "server-status",
-	Short: "Show status of selected server",
+	Short: "Status of selected server",
 
 	Run: func(cmd *cobra.Command, args []string) {
 		serverStatus, err := riot.GetServerStatus(client)
