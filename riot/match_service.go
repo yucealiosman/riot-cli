@@ -1,7 +1,7 @@
 package riot
 
 import (
-	"riot-cli/pkg"
+	"github.com/yucealiosman/riot-cli/pkg"
 )
 
 type MatchDetail struct {

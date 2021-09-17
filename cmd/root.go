@@ -3,9 +3,10 @@ package cmd
 import (
 	"fmt"
 	"net/http"
-	"riot-cli/pkg"
-	"riot-cli/util"
 	"time"
+
+	"github.com/yucealiosman/riot-cli/pkg"
+	"github.com/yucealiosman/riot-cli/util"
 
 	"github.com/manifoldco/promptui"
 	"github.com/spf13/cobra"

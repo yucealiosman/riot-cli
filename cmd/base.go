@@ -3,7 +3,8 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"riot-cli/util"
+
+	"github.com/yucealiosman/riot-cli/util"
 
 	"github.com/fatih/color"
 	"github.com/manifoldco/promptui"

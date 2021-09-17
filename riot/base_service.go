@@ -2,7 +2,8 @@ package riot
 
 import (
 	"encoding/json"
-	"riot-cli/pkg"
+
+	"github.com/yucealiosman/riot-cli/pkg"
 
 	"github.com/spf13/viper"
 )

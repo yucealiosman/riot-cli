@@ -2,7 +2,8 @@ package cmd
 
 import (
 	"encoding/json"
-	"riot-cli/riot"
+
+	"github.com/yucealiosman/riot-cli/riot"
 
 	"github.com/spf13/cobra"
 )
